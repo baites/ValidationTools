@@ -1,0 +1,42 @@
+#! /usr/bin/env python
+# ValidationTools : dropbox
+#
+# Developers:
+#   Kenneth James Smith
+#   Victor Eduardo Bazterra
+#
+# Descrition:
+# A tool to create and matain the ValidationTool drop box.
+
+import os, shutil
+
+from optparse import OptionParser
+
+import Configuration
+
+usage = "usage: %prog [options] arg1 arg2"
+parser = OptionParser()
+parser.add_option("-c", "--create", action="store_true", dest="create", default=False, help="create the dropbox.")
+parser.add_option("-s", "--clean_scratch", action="store_true", dest="clean_scratch", default=False, help="clean the scratch area of the dropbox.")
+parser.add_option("-r", "--clean_release", dest="clean_release", help="clean the scratch area of the dropbox.")
+
+(options, args) = parser.parse_args()
+
+if options.create:
+  if os.path.isdir(Configuration.variables['DropBox']):
+    print 'There is a pre-existent dropbox already!'
+  else:
+    os.mkdir(Configuration.variables['DropBox'])
+    os.mkdir(Configuration.variables['DropBox'] + '/Scratch')
+    os.mkdir(Configuration.variables['DropBox'] + '/Releases')
+    os.mkdir(Configuration.variables['DropBox'] + '/CfgFiles')
+
+if options.clean_scratch:
+  for entry in os.listdir(Configuration.variables['DropBox']+'/Scratch'):
+    shutil.rmtree(Configuration.variables['DropBox']+'/Scratch/'+entry)
+  for entry in os.listdir(Configuration.variables['DropBox']+'/CfgFiles'):
+    shutil.rmtree(Configuration.variables['DropBox']+'/CfgFiles/'+entry)
+
+if options.clean_release != None:
+  shutil.rmtree(Configuration.variables['DropBox']+'/Releases/'+options.clean_release)
+

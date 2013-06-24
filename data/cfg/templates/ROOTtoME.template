@@ -1,0 +1,34 @@
+#! /bin/csh 
+
+process ROOTtoMEConvert =
+{
+    untracked PSet maxEvents = {untracked int32 input = 1}
+    
+    ## setup useful services
+    ##
+    include "DQMServices/Components/data/MessageLogger.cfi" 
+    
+    ## Step 1: Read in MC+Sim events
+    ## 
+    ## read in OscarProducer file
+    source = PoolSource
+    {
+	untracked vstring fileNames =
+	{
+	    ${DataSample}
+	}
+    }
+
+
+    
+    replace maxEvents.input = -1
+    
+    ## Accumulation of globally transformed data
+    ##
+    ##module globalhithistogram
+    include "DQMServices/Components/data/ROOTtoMEConverter.cff"
+    replace ROOTtoMEConverter.Outputfile = ${OutputFile}
+    ## execute path
+    ##
+    path p1 = { ROOTtoMEConverter }
+}

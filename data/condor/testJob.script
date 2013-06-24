@@ -1,0 +1,10 @@
+universe = vanilla
+Executable = /bin/sleeph 
+Requirements = Memory >= 199 &&OpSys == "LINUX"&& (Arch != "DUMMY")
+Should_Transfer_Files = NO
+Output = /tmp/stdout
+Error  = /tmp/stderr
+Log    = /tmp/log
++UseSL4=TRUE
+arguments = ${cfg}
+Queue 1

@@ -1,0 +1,11 @@
+#! /bin/sh
+
+ulimit -s unlimited
+
+## This is not needed at lxplus CERN site. 
+##source /uscmst1/prod/sw/cms/cshrc uaf
+cd ${cmssw}
+eval `scramv1 runtime -sh`
+cd ${scratch}
+
+cmsRun ${cfg}  

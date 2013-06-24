@@ -1,0 +1,20 @@
+process EDMtoMEConvert =
+{
+    untracked PSet maxEvents = {untracked int32 input = -1}
+
+    ## setup useful services    
+    include "DQMServices/Components/data/MessageLogger.cfi"
+    
+    ## read in RelVal file
+    ${lfns}
+ 
+    ## include EDMtoMEConverter
+    include "DQMServices/Components/data/EDMtoMEConverter.cff"
+
+    ## provide the primary dataset name
+    replace dqmSaver.dataset="${dataset}"
+    replace dqmSaver.addDataset = true
+    
+    ## execute path
+    path p1 = { EDMtoMEConverter, dqmSaver }
+}

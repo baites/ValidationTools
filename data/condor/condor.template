@@ -1,0 +1,10 @@
+universe = vanilla
+Executable = ${scratch}/cmsrun 
+Requirements = Memory >= 199 &&OpSys == "LINUX"&& (Arch != "DUMMY")
+Should_Transfer_Files = NO
+Output = ${scratch}/stdout
+Error  = ${scratch}/stderr
+Log    = ${scratch}/log
++UseSL4=TRUE
+arguments = "" 
+Queue 1
